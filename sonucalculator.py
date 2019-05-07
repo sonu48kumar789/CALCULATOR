@@ -1,0 +1,92 @@
+import wx
+class Calculator(wx.Frame):
+    total = ""
+    def __init__(self,parent,title):
+        super(Calculator,self).__init__(parent,title=title,size=(300,400))
+        self.design()
+        self.Show()
+    def design(self):
+        panel = wx.Panel(self)
+        panel.SetBackgroundColour("black")
+        box = wx.BoxSizer(wx.VERTICAL)
+        heading = wx.StaticText(panel, label="CALCULATOR")
+        box.Add(heading, 0, wx.ALL | wx.ALIGN_CENTER_HORIZONTAL, 10)
+        heading.SetForegroundColour('red')
+        self.display = wx.TextCtrl(panel)
+        box.Add(self.display,0,wx.ALL|wx.EXPAND,border=10)
+        gs = wx.GridSizer(4,4,10,10)
+        list = ["1","2","3","+","4","5","6","-","7","8","9","/","0","C","=","*"]
+        btn ={}
+        index = 0
+        for x in list:
+            btn[index] = wx.Button(panel,label=x,style=wx.EXPAND)
+            gs.Add(btn[index],1,wx.EXPAND|wx.ALL)
+            index +=1
+        self.Bind(wx.EVT_BUTTON,lambda event: self.displays(event,list[0]),btn[0])
+        self.Bind(wx.EVT_BUTTON,lambda event: self.displays(event,list[1]),btn[1])
+        self.Bind(wx.EVT_BUTTON,lambda event: self.displays(event,list[2]),btn[2])
+        self.Bind(wx.EVT_BUTTON,lambda event: self.displays(event,list[3]),btn[3])
+        self.Bind(wx.EVT_BUTTON,lambda event: self.displays(event,list[4]),btn[4])
+        self.Bind(wx.EVT_BUTTON,lambda event: self.displays(event,list[5]),btn[5])
+        self.Bind(wx.EVT_BUTTON,lambda event: self.displays(event,list[6]),btn[6])
+        self.Bind(wx.EVT_BUTTON,lambda event: self.displays(event,list[7]),btn[7])
+        self.Bind(wx.EVT_BUTTON,lambda event: self.displays(event,list[8]),btn[8])
+        self.Bind(wx.EVT_BUTTON,lambda event: self.displays(event,list[9]),btn[9])
+        self.Bind(wx.EVT_BUTTON,lambda event: self.displays(event,list[10]),btn[10])
+        self.Bind(wx.EVT_BUTTON,lambda event: self.displays(event,list[11]),btn[11])
+        self.Bind(wx.EVT_BUTTON,lambda event: self.displays(event,list[12]),btn[12])
+        self.Bind(wx.EVT_BUTTON,lambda event: self.displays(event,list[13]),btn[13])
+        self.Bind(wx.EVT_BUTTON,lambda event: self.displays(event,list[14]),btn[14])
+        self.Bind(wx.EVT_BUTTON,lambda event: self.displays(event,list[15]),btn[15])
+        btn[13].SetForegroundColour("white")
+        btn[13].SetBackgroundColour("red")
+        btn[0].SetForegroundColour("white")
+        btn[0].SetBackgroundColour("#550066")
+        btn[1].SetForegroundColour("white")
+        btn[1].SetBackgroundColour("#550066")
+        btn[2].SetForegroundColour("white")
+        btn[2].SetBackgroundColour("#550066")
+        btn[3].SetForegroundColour("white")
+        btn[3].SetBackgroundColour("#000040")
+        btn[4].SetForegroundColour("white")
+        btn[4].SetBackgroundColour("#550066")
+        btn[5].SetForegroundColour("white")
+        btn[5].SetBackgroundColour("#550066")
+        btn[6].SetForegroundColour("white")
+        btn[6].SetBackgroundColour("#550066")
+        btn[7].SetForegroundColour("white")
+        btn[7].SetBackgroundColour("#000040")
+        btn[8].SetForegroundColour("white")
+        btn[8].SetBackgroundColour("#550066")
+        btn[9].SetForegroundColour("white")
+        btn[9].SetBackgroundColour("#550066")
+        btn[10].SetForegroundColour("white")
+        btn[10].SetBackgroundColour("#550066")
+        btn[11].SetForegroundColour("white")
+        btn[11].SetBackgroundColour("#000040")
+        btn[12].SetForegroundColour("white")
+        btn[12].SetBackgroundColour("#550066")
+        btn[14].SetForegroundColour("white")
+        btn[14].SetBackgroundColour("green")
+        btn[15].SetForegroundColour("white")
+        btn[15].SetBackgroundColour("#000040")
+        box.Add(gs,1,wx.ALL|wx.EXPAND,border=10)
+        footer = wx.StaticText(panel, 1, label="Designed by Sonu...")
+        box.Add(footer, 0, wx.ALL | wx.ALIGN_RIGHT | wx.TOP | wx.BOTTOM, 16)
+        font = wx.Font(17, wx.DECORATIVE, wx.NORMAL, wx.NORMAL)
+        footer.SetFont(font)
+        footer.SetForegroundColour("blue")
+        panel.SetSizer(box)
+    def displays(self,event,data):
+        if data=="=":
+            self.display.SetValue(str(eval(self.total)))
+        elif data =="C":
+            self.display.SetValue("0")
+            self.total = ""
+        else:
+            self.total += data
+            self.display.SetValue(self.total)
+
+app = wx.App()
+a = Calculator(None,"calculator")
+app.MainLoop()
